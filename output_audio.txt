@@ -1,0 +1,19 @@
+================================
+CONSOLIDATED MULTIMEDIA REPORT
+================================
+{
+    "File Type Identified": "AUDIO",
+    "File Name": "proper_audio.mp3",
+    "File Size": "8.53 MB",
+    "Channels": "2",
+    "Sampling Rate": "44100 Hz",
+    "Bit Rate": "192 kbps",
+    "Duration": "372.72 seconds",
+    "Metadata": {
+        "TPE1": "SoundHelix",
+        "TDRC": "2009",
+        "TCON": "Electronic"
+    }
+}
+
+Report saved to reports/report.json
