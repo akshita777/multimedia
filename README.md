@@ -43,9 +43,6 @@ pip install Pillow mutagen
 ### Video
 ▶️ [sample.mp4](samples/sample.mp4)
 
-## System Architecture
-
-![Workflow Diagram](diagram.png)
 
 ## Sample Report Output
 ```json
