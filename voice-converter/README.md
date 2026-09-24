@@ -3,9 +3,11 @@
 
 A lightweight voice-conversion web application built for the Multimedia assignment. It takes an input voice recording (e.g., MP3 or WAV) and transforms it into a target voice using ElevenLabs' Speech-to-Speech (STS) / Voice Changer API while preserving the rhythm, pitch inflection, and pacing of the original speaker.
 
-## Demo Preview
+## Demo Video & Preview
 
-![Voice Converter Demo](demo.png)
+![Voice Converter Working Demo](demo.gif)
+
+🎬 **[Click to watch / download the full demo video with audio (demo.mp4)](demo.mp4)**
 
 ---
 

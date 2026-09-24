@@ -90,9 +90,11 @@ pip install Pillow mutagen
 
 A lightweight web application that transforms any input voice recording into a distinct target voice using **ElevenLabs Speech-to-Speech (STS)**.
 
-### UI Demo Preview
+### Working Demo Video & Preview
 
-![Voice Converter Demo](voice-converter/demo.png)
+![Voice Converter Working Demo](voice-converter/demo.gif)
+
+🎬 **[Watch / Download Full Demo Video with Audio (demo.mp4)](voice-converter/demo.mp4)**
 
 ### Features
 * **Speech-to-Speech Conversion:** Changes vocal timbre and identity to a target speaker (Default: **Adam**) while preserving emotional inflection, phrasing, and pacing.
