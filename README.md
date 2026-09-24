@@ -95,7 +95,7 @@ A lightweight web application that transforms any input voice recording into a d
 ![Voice Converter Working Demo](voice-converter/demo.gif)
 
 🎬 **[Watch / Download Full Demo Video with Human Voice Audio (demo.mp4)](voice-converter/demo.mp4)**
-*(Demonstrates an original human female voice saying "I am female, I am speaking English..." converted into Adam's deep male voice while preserving the natural pacing and inflection).*
+*(Demonstrates an original human female voice saying "Hello, this is my multimedia project" converted into Adam's deep male voice while preserving the natural pacing and inflection).*
 
 ### Features
 * **Real Human Voice Conversion:** Changes vocal timbre and identity to a target speaker (Default: **Adam**) while preserving emotional inflection, phrasing, and pacing.
