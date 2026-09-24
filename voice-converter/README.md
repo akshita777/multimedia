@@ -7,7 +7,8 @@ A lightweight voice-conversion web application built for the Multimedia assignme
 
 ![Voice Converter Working Demo](demo.gif)
 
-🎬 **[Click to watch / download the full demo video with audio (demo.mp4)](demo.mp4)**
+🎬 **[Click to watch / download the full demo video with human voice audio (demo.mp4)](demo.mp4)**
+*(Features a human female voice saying "I am female, I am speaking English..." converted into Adam's deep masculine voice).*
 
 ---
 

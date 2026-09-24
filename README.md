@@ -94,10 +94,12 @@ A lightweight web application that transforms any input voice recording into a d
 
 ![Voice Converter Working Demo](voice-converter/demo.gif)
 
-🎬 **[Watch / Download Full Demo Video with Audio (demo.mp4)](voice-converter/demo.mp4)**
+🎬 **[Watch / Download Full Demo Video with Human Voice Audio (demo.mp4)](voice-converter/demo.mp4)**
+*(Demonstrates an original human female voice saying "I am female, I am speaking English..." converted into Adam's deep male voice while preserving the natural pacing and inflection).*
 
 ### Features
-* **Speech-to-Speech Conversion:** Changes vocal timbre and identity to a target speaker (Default: **Adam**) while preserving emotional inflection, phrasing, and pacing.
+* **Real Human Voice Conversion:** Changes vocal timbre and identity to a target speaker (Default: **Adam**) while preserving emotional inflection, phrasing, and pacing.
+* **Ready-to-test Voice Sample:** Includes a sample spoken audio clip (`samples/speech_sample.mp3`) for instant testing.
 * **Audio Player & Instant Download:** Listen to both original and converted audio side-by-side, and download the resulting `.mp3`.
 * **Safe Key Handling:** ElevenLabs API key is securely stored in `.env` on a tiny Node.js/Express backend—never exposed to the frontend.
 
