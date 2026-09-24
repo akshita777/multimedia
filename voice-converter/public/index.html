@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Converter — ElevenLabs Speech-to-Speech</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <div class="badge">Multimedia Project &bull; Speech-to-Speech</div>
+      <h1>Voice Converter</h1>
+      <p class="subtitle">Convert any voice recording into a different target voice using ElevenLabs AI.</p>
+      
+      <!-- Target voice info banner -->
+      <div class="target-voice-card">
+        <span class="voice-label">Target Voice:</span>
+        <strong id="targetVoiceDisplay">Loading...</strong>
+        <span id="apiKeyStatus" class="api-status">Checking API key...</span>
+      </div>
+    </header>
+
+    <main class="main-card">
+      <!-- Step 1: Upload Audio File -->
+      <section class="section-step">
+        <label class="step-title" for="audioInput">
+          <span class="step-number">1</span> Select Voice Recording
+        </label>
+        
+        <div class="file-upload-box" id="dropArea">
+          <input type="file" id="audioInput" accept="audio/*,.mp3,.wav,.ogg,.m4a,.flac" />
+          <div class="upload-placeholder">
+            <svg class="upload-icon" viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" fill="none" stroke-width="2">
+              <path d="M9 18V5l12-2v13" />
+              <circle cx="6" cy="18" r="3" />
+              <circle cx="18" cy="16" r="3" />
+            </svg>
+            <p><strong>Click to browse</strong> or drag & drop audio here</p>
+            <span class="file-support-text">Supported formats: MP3, WAV, M4A, OGG</span>
+          </div>
+          <div id="fileInfo" class="file-info hidden">
+            <span class="file-name" id="fileName"></span>
+            <span class="file-size" id="fileSize"></span>
+          </div>
+        </div>
+
+        <!-- Optional original audio preview -->
+        <div id="originalAudioContainer" class="audio-preview hidden">
+          <label>Original Audio Preview:</label>
+          <audio id="originalAudioPlayer" controls></audio>
+        </div>
+      </section>
+
+      <!-- Step 2: Convert Action -->
+      <section class="section-step">
+        <button id="convertBtn" class="primary-btn" disabled>
+          <span class="btn-text">Convert Voice</span>
+          <span class="btn-spinner hidden" id="btnSpinner"></span>
+        </button>
+      </section>
+
+      <!-- Status / Alerts -->
+      <div id="statusMessage" class="status-box hidden" role="alert"></div>
+
+      <!-- Step 3: Converted Output Player & Download -->
+      <section id="outputSection" class="output-card hidden">
+        <div class="output-header">
+          <span class="step-number success">✓</span>
+          <h3>Converted Audio</h3>
+        </div>
+        <p class="output-desc">Your voice has been converted to the target voice:</p>
+        
+        <div class="player-container">
+          <audio id="convertedAudioPlayer" controls></audio>
+        </div>
+
+        <div class="output-actions">
+          <a id="downloadBtn" class="download-btn" href="#" download="converted_voice.mp3">
+            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" fill="none" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Converted Audio (.mp3)
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Powered by <strong>ElevenLabs Speech-to-Speech API</strong> &bull; Part of the Multimedia repository assignment</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -4,19 +4,31 @@ Accepts any media file (Image, Audio, Video), auto-detects the type, routes it t
 
 ## Project Structure
 ```
-multimedia_analyzer/
-├── main.py
-├── file_utils.py
-├── image_analyzer.py
-├── audio_analyzer.py
-├── video_analyzer.py
-├── report_generator.py
-├── samples/
-│   ├── sample.jpg
-│   ├── sample.mp3
-│   └── sample.mp4
-└── reports/
-    └── report.json
+final-Multimedia/
+├── multimedia_analyzer/          # Python Multimedia Metadata Analyzer
+│   ├── main.py
+│   ├── file_utils.py
+│   ├── image_analyzer.py
+│   ├── audio_analyzer.py
+│   ├── video_analyzer.py
+│   ├── report_generator.py
+│   ├── samples/
+│   │   ├── sample.jpg
+│   │   ├── sample.mp3
+│   │   └── sample.mp4
+│   └── reports/
+│       └── report.json
+│
+└── voice-converter/              # ElevenLabs Speech-to-Speech Voice Converter
+    ├── server.js                 # Express server & ElevenLabs API proxy
+    ├── package.json              # Node dependencies (express, multer, dotenv)
+    ├── .env.example              # Environment variables template
+    ├── README.md                 # Detailed module documentation
+    ├── demo.png                  # UI demo preview
+    └── public/                   # Plain HTML/CSS/JS web frontend
+        ├── index.html
+        ├── style.css
+        └── app.js
 ```
 
 ## Usage
@@ -71,3 +83,35 @@ pip install Pillow mutagen
     }
 }
 ```
+
+---
+
+## 🎙️ Voice Converter Module (ElevenLabs Speech-to-Speech)
+
+A lightweight web application that transforms any input voice recording into a distinct target voice using **ElevenLabs Speech-to-Speech (STS)**.
+
+### UI Demo Preview
+
+![Voice Converter Demo](voice-converter/demo.png)
+
+### Features
+* **Speech-to-Speech Conversion:** Changes vocal timbre and identity to a target speaker (Default: **Adam**) while preserving emotional inflection, phrasing, and pacing.
+* **Audio Player & Instant Download:** Listen to both original and converted audio side-by-side, and download the resulting `.mp3`.
+* **Safe Key Handling:** ElevenLabs API key is securely stored in `.env` on a tiny Node.js/Express backend—never exposed to the frontend.
+
+### Quick Start
+```bash
+# 1. Enter module directory
+cd voice-converter
+
+# 2. Install dependencies
+npm install
+
+# 3. Configure API key
+cp .env.example .env
+# Edit .env and set ELEVENLABS_API_KEY=your_key
+
+# 4. Start the server
+npm start
+```
+Visit `http://localhost:3000` in your browser. For full documentation, see [voice-converter/README.md](voice-converter/README.md).

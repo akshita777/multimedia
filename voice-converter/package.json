@@ -1,0 +1,22 @@
+{
+  "name": "voice-converter",
+  "version": "1.0.0",
+  "description": "Small voice conversion project using ElevenLabs Speech-to-Speech API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "elevenlabs",
+    "speech-to-speech",
+    "voice-changer",
+    "multimedia"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1"
+  }
+}
