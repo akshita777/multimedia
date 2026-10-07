@@ -1,5 +1,5 @@
 # Final Project — Consolidated Multimedia Analyzer
-
+ 
 Accepts any media file (Image, Audio, Video), auto-detects the type, routes it to the correct analyzer module, and produces a structured JSON report.
 
 ## Project Structure
