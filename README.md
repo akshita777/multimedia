@@ -1,61 +1,72 @@
-# Final Project — Multimedia Processing Suite
+# Final Project — Consolidated Multimedia Analyzer
 
-A consolidated multimedia laboratory suite featuring media metadata analysis, speech-to-speech conversion, AI voice cloning, and digital image enhancement.
+Accepts any media file (Image, Audio, Video), auto-detects the type, routes it to the correct analyzer module, and produces a structured JSON report.
 
----
-
-## 🗂️ Project Structure
-
+## Project Structure
 ```
 final-Multimedia/
-├── samples/                      # Test media files (Images, Audio, Video)
-│   ├── sample.jpg
-│   ├── sample.mp3
-│   ├── sample.mp4
-│   └── speech_sample.mp3
+├── multimedia_analyzer/          # Python Multimedia Metadata Analyzer
+│   ├── main.py
+│   ├── file_utils.py
+│   ├── image_analyzer.py
+│   ├── audio_analyzer.py
+│   ├── video_analyzer.py
+│   ├── report_generator.py
+│   ├── samples/
+│   │   ├── sample.jpg
+│   │   ├── sample.mp3
+│   │   └── sample.mp4
+│   └── reports/
+│       └── report.json
 │
-├── main.py                       # [Task 1] Multimedia Metadata Analyzer CLI
-├── file_utils.py
-├── image_analyzer.py
-├── audio_analyzer.py
-├── video_analyzer.py
-├── report_generator.py
+├── voice-converter/              # ElevenLabs Speech-to-Speech Voice Converter
+│   ├── server.js                 # Express server & ElevenLabs API proxy
+│   ├── package.json              # Node dependencies (express, multer, dotenv)
+│   ├── .env.example              # Environment variables template
+│   ├── README.md                 # Detailed module documentation
+│   ├── demo.png                  # UI demo preview
+│   └── public/                   # Plain HTML/CSS/JS web frontend
+│       ├── index.html
+│       ├── style.css
+│       └── app.js
 │
-├── voice-converter/              # [Task 2] ElevenLabs Speech-to-Speech Voice Converter
-│   ├── server.js                 # Node.js/Express STS backend
-│   ├── package.json
-│   ├── README.md
-│   └── public/                   # Web interface
-│
-├── voice-cloning/                # [Task 3] AI Voice Cloning & TTS Engine
-│   ├── server.js                 # Express Voice Cloning & Neural TTS backend
-│   ├── clone_voice.py            # Python CLI for voice cloning
-│   ├── package.json
-│   ├── README.md
-│   └── public/                   # Voice Cloning Web Studio
-│
-└── image-enhancer/               # [Task 4] Digital Image Enhancement Studio
+└── image-enhancer/               # Digital Image Enhancement Studio
     ├── enhancer.py               # Core image processing engine (Pillow + NumPy)
     ├── cli.py                    # Python CLI with PSNR/MSE metrics
     ├── server.py                 # Lightweight local web server
-    ├── README.md
+    ├── README.md                 # Module documentation
     └── web/                      # Interactive Split-Slider Web Studio
+        ├── index.html
+        ├── style.css
+        └── app.js
 ```
 
----
-
-## 📌 Task 1: Consolidated Multimedia Metadata Analyzer
-
-Accepts any media file (Image, Audio, Video), auto-detects the container and codec types, routes to the appropriate analyzer module, and generates a structured JSON report.
-
-### Usage
+## Usage
 ```bash
 python main.py samples/sample.jpg
 python main.py samples/sample.mp3
 python main.py samples/sample.mp4
 ```
 
-### Sample Report
+## Requirements
+```
+pip install Pillow mutagen
+# Also: FFmpeg installed on system
+```
+
+## Sample Files
+
+### Image
+![sample](samples/sample.jpg)
+
+### Audio
+▶️ [sample.mp3](samples/sample.mp3)
+
+### Video
+▶️ [sample.mp4](samples/sample.mp4)
+
+
+## Sample Report Output
 ```json
 {
     "File Type Identified": "VIDEO",
@@ -74,58 +85,56 @@ python main.py samples/sample.mp4
         "Channels": "2",
         "Sampling Rate": "48000 Hz",
         "Bit Rate": "160 kbps"
+    },
+    "Metadata": {
+        "major_brand": "mp42",
+        "creation_time": "2012-03-13T08:58:06.000000Z",
+        "encoder": "HandBrake 0.9.6 2012022800"
     }
 }
 ```
 
 ---
 
-## 🎙️ Task 2: Voice Converter Module (ElevenLabs Speech-to-Speech)
+## 🎙️ Voice Converter Module (ElevenLabs Speech-to-Speech)
 
-Transforms an input voice recording into a distinct target voice using **ElevenLabs Speech-to-Speech (STS)**.
+A lightweight web application that transforms any input voice recording into a distinct target voice using **ElevenLabs Speech-to-Speech (STS)**.
+
+### Working Demo Video & Preview
 
 ![Voice Converter Working Demo](voice-converter/demo.gif)
 
-### Quick Start
-```bash
-cd voice-converter
-npm install
-npm start
-```
-Visit `http://localhost:3000`. Full docs: [voice-converter/README.md](voice-converter/README.md).
-
----
-
-## 🧬 Task 3: AI Voice Cloning & Speech Synthesis
-
-Instant Voice Cloning (IVC) and Neural Text-to-Speech (TTS) studio. Enrolls any speaker's vocal characteristics from a short reference audio clip (e.g. `samples/speech_sample.mp3`), registers an acoustic clone profile, and synthesizes dynamic speech.
+🎬 **[Watch / Download Full Demo Video with Human Voice Audio (demo.mp4)](voice-converter/demo.mp4)**
+*(Demonstrates an original human female voice saying "Hello, this is my multimedia project" converted into Adam's deep male voice while preserving the natural pacing and inflection).*
 
 ### Features
-* **Instant Voice Cloning:** Enrolls reference audio via ElevenLabs Instant Voice Cloning (`/v1/voices/add`) with an offline simulation fallback mode.
-* **Neural Text-to-Speech:** Generates speech from custom text prompts in the cloned speaker's timbre.
-* **Dual Interface:** Interactive Web Studio (`public/`) and Python CLI (`clone_voice.py`).
+* **Real Human Voice Conversion:** Changes vocal timbre and identity to a target speaker (Default: **Adam**) while preserving emotional inflection, phrasing, and pacing.
+* **Ready-to-test Voice Sample:** Includes a sample spoken audio clip (`samples/speech_sample.mp3`) for instant testing.
+* **Audio Player & Instant Download:** Listen to both original and converted audio side-by-side, and download the resulting `.mp3`.
+* **Safe Key Handling:** ElevenLabs API key is securely stored in `.env` on a tiny Node.js/Express backend—never exposed to the frontend.
 
 ### Quick Start
 ```bash
-# 1. Run Web Studio
-cd voice-cloning
-npm start
-# Visit http://localhost:3001
+# 1. Enter module directory
+cd voice-converter
 
-# 2. Or Run Python CLI
-python clone_voice.py \
-  --sample ../samples/speech_sample.mp3 \
-  --name "MySpeaker" \
-  --text "Hello! This voice has been cloned." \
-  --output cloned_output.mp3
+# 2. Install dependencies
+npm install
+
+# 3. Configure API key
+cp .env.example .env
+# Edit .env and set ELEVENLABS_API_KEY=your_key
+
+# 4. Start the server
+npm start
 ```
-Full docs: [voice-cloning/README.md](voice-cloning/README.md).
+Visit `http://localhost:3000` in your browser. For full documentation, see [voice-converter/README.md](voice-converter/README.md).
 
 ---
 
-## ✨ Task 4: Digital Image Enhancement Studio
+## ✨ Image Enhancement Module
 
-Digital image processing tool implementing spatial filtering, histogram equalization, unsharp masking, tonal correction, and quantitative fidelity evaluation (**PSNR**, **MSE**).
+A digital image processing tool implementing spatial filtering, histogram equalization, unsharp masking, tonal correction, and quantitative fidelity evaluation (**PSNR**, **MSE**).
 
 ### Features
 * **Spatial & Edge Filters:** Unsharp Masking ($I + \alpha(I - I_{\text{blur}})$), Median Denoising (salt-and-pepper noise removal), and Gaussian smoothing.
@@ -146,4 +155,4 @@ python cli.py --input ../samples/sample.jpg --output enhanced.jpg --preset auto
 # Compare side-by-side:
 python cli.py --input ../samples/sample.jpg --output comparison.jpg --preset hdr --compare
 ```
-Full docs: [image-enhancer/README.md](image-enhancer/README.md).
+For full documentation, see [image-enhancer/README.md](image-enhancer/README.md).
