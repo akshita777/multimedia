@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voice Cloning & Speech Synthesis — Multimedia Studio</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <div class="badge">Multimedia Project &bull; Voice Cloning & TTS</div>
+      <h1>AI Voice Cloning Studio</h1>
+      <p class="subtitle">Clone any speaker's vocal characteristics from a short sample, then synthesize new custom speech.</p>
+      
+      <!-- API Status banner -->
+      <div class="status-banner">
+        <span class="status-indicator" id="statusIndicator"></span>
+        <span id="apiStatusText">Connecting to Voice Engine...</span>
+      </div>
+    </header>
+
+    <main class="main-card">
+      <!-- Step 1: Upload / Choose Reference Voice Sample -->
+      <section class="section-step">
+        <div class="step-header">
+          <span class="step-number">1</span>
+          <div>
+            <h3>Reference Voice Sample</h3>
+            <p class="step-desc">Upload 5–30 seconds of clear speech from the voice you want to clone.</p>
+          </div>
+        </div>
+
+        <div class="sample-actions">
+          <button type="button" id="useSampleBtn" class="secondary-btn">
+            🎵 Use Bundled Sample (speech_sample.mp3)
+          </button>
+        </div>
+
+        <div class="file-upload-box" id="dropArea">
+          <input type="file" id="audioInput" accept="audio/*,.mp3,.wav,.ogg,.m4a,.flac" />
+          <div class="upload-placeholder" id="uploadPlaceholder">
+            <svg class="upload-icon" viewBox="0 0 24 24" width="40" height="40" stroke="currentColor" fill="none" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+            <p><strong>Click to browse</strong> or drag & drop reference audio</p>
+            <span class="file-support-text">MP3, WAV, M4A, FLAC, OGG</span>
+          </div>
+          <div id="fileInfo" class="file-info hidden">
+            <span class="file-name" id="fileName"></span>
+            <span class="file-size" id="fileSize"></span>
+          </div>
+        </div>
+
+        <div id="originalAudioContainer" class="audio-preview hidden">
+          <label>Reference Audio Playback:</label>
+          <audio id="originalAudioPlayer" controls></audio>
+        </div>
+      </section>
+
+      <!-- Step 2: Voice Details & Cloning Action -->
+      <section class="section-step">
+        <div class="step-header">
+          <span class="step-number">2</span>
+          <div>
+            <h3>Clone Voice Profile</h3>
+            <p class="step-desc">Name your cloned persona and register the acoustic model.</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="input-group">
+            <label for="voiceNameInput">Cloned Voice Name:</label>
+            <input type="text" id="voiceNameInput" placeholder="e.g., Akshita Cloned Voice" value="Custom Persona" />
+          </div>
+          <div class="input-group">
+            <label for="voiceDescInput">Description / Tone Notes:</label>
+            <input type="text" id="voiceDescInput" placeholder="e.g., Energetic, clear presentation voice" />
+          </div>
+        </div>
+
+        <button id="cloneBtn" class="primary-btn" disabled>
+          <span class="btn-text">🧬 Clone This Voice</span>
+          <span class="btn-spinner hidden" id="cloneSpinner"></span>
+        </button>
+
+        <div id="cloneSuccessCard" class="card-cloned hidden">
+          <div class="cloned-badge">✅ Cloned Profile Active</div>
+          <p>Voice ID: <code id="activeVoiceId">...</code></p>
+          <p>Name: <strong id="activeVoiceName">...</strong></p>
+        </div>
+      </section>
+
+      <!-- Step 3: Text-to-Speech Synthesis -->
+      <section class="section-step">
+        <div class="step-header">
+          <span class="step-number">3</span>
+          <div>
+            <h3>Synthesize Speech in Cloned Voice</h3>
+            <p class="step-desc">Enter any sentence to generate voice audio with the cloned timbre.</p>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="ttsTextInput">Script / Text Prompt:</label>
+          <textarea id="ttsTextInput" rows="3" placeholder="Hello! This voice has been cloned and is now generating completely new sentences.">Hello! Welcome to our multimedia project. This speech is generated using our AI voice cloning engine.</textarea>
+        </div>
+
+        <div class="tts-presets">
+          <span>Quick Prompts:</span>
+          <button type="button" class="chip-btn" data-text="Hello and welcome to the final multimedia project exhibition!">Project Exhibition</button>
+          <button type="button" class="chip-btn" data-text="Voice cloning extracts spectral and pitch features to replicate human timbre.">Acoustic Theory</button>
+          <button type="button" class="chip-btn" data-text="Congratulations! The instant voice cloning process was completed successfully.">Success Message</button>
+        </div>
+
+        <button id="generateBtn" class="primary-btn action-generate" disabled>
+          <span class="btn-text">🔊 Generate Speech with Cloned Voice</span>
+          <span class="btn-spinner hidden" id="genSpinner"></span>
+        </button>
+      </section>
+
+      <!-- Step 4: Playback and Download Results -->
+      <section id="resultsSection" class="section-step results-step hidden">
+        <div class="step-header">
+          <span class="step-number">4</span>
+          <div>
+            <h3>Cloned Speech Output</h3>
+            <p class="step-desc">Listen to the synthesized output and download the audio.</p>
+          </div>
+        </div>
+
+        <div class="result-player-box">
+          <audio id="resultAudioPlayer" controls></audio>
+          <a id="downloadBtn" class="download-btn" download="cloned_voice_output.mp3">
+            ⬇️ Download Cloned MP3
+          </a>
+        </div>
+      </section>
+
+      <!-- Alert Box -->
+      <div id="alertBox" class="alert-box hidden"></div>
+    </main>
+
+    <!-- Available Voices Library -->
+    <section class="voices-library-card">
+      <h3>Active Voice Library</h3>
+      <p class="library-subtitle">Profiles registered in the current session / ElevenLabs workspace:</p>
+      <div id="voicesList" class="voices-grid">
+        <div class="voice-item-placeholder">Loading voices...</div>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <p>Multimedia Final Project &bull; Task 3: Voice Cloning &bull; Built with ElevenLabs API & FFmpeg</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Enhancement Studio — Multimedia Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <header class="app-header">
+      <div class="badge">Multimedia Project &bull; Spatial Filtering & Histogram Processing</div>
+      <h1>Image Enhancement Studio</h1>
+      <p class="subtitle">Enhance contrast, reduce noise, sharpen edges, and evaluate PSNR/MSE metrics in real-time.</p>
+    </header>
+
+    <div class="app-layout">
+      <!-- Left: Controls & Adjustments -->
+      <aside class="control-panel">
+        <!-- Image Selection -->
+        <section class="panel-section">
+          <h3>1. Image Source</h3>
+          <div class="button-row">
+            <button id="loadSampleBtn" class="secondary-btn">🖼️ Load Sample Image</button>
+            <label for="imageUpload" class="upload-label-btn">📁 Upload File</label>
+            <input type="file" id="imageUpload" accept="image/*" class="hidden" />
+          </div>
+        </section>
+
+        <!-- Presets -->
+        <section class="panel-section">
+          <h3>2. Instant Presets</h3>
+          <div class="preset-chips">
+            <button class="preset-btn active" data-preset="auto">✨ Auto AI</button>
+            <button class="preset-btn" data-preset="low_light">🌙 Low Light</button>
+            <button class="preset-btn" data-preset="crisp_detail">🔍 Crisp Detail</button>
+            <button class="preset-btn" data-preset="hdr">🌈 Vibrant HDR</button>
+            <button class="preset-btn" data-preset="denoise_clean">🧹 Denoise Clean</button>
+          </div>
+        </section>
+
+        <!-- Sliders -->
+        <section class="panel-section">
+          <h3>3. Manual Tuning</h3>
+          
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Brightness</span>
+              <span id="brightnessVal">1.00x</span>
+            </div>
+            <input type="range" id="brightnessSlider" min="0.5" max="2.0" step="0.05" value="1.0">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Contrast</span>
+              <span id="contrastVal">1.00x</span>
+            </div>
+            <input type="range" id="contrastSlider" min="0.5" max="2.5" step="0.05" value="1.0">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Saturation / Vibrance</span>
+              <span id="saturationVal">1.00x</span>
+            </div>
+            <input type="range" id="saturationSlider" min="0.0" max="2.5" step="0.05" value="1.0">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Sharpness</span>
+              <span id="sharpnessVal">1.00x</span>
+            </div>
+            <input type="range" id="sharpnessSlider" min="0.5" max="3.0" step="0.1" value="1.0">
+          </div>
+
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Color Temperature (Warm/Cool)</span>
+              <span id="tempVal">0.00</span>
+            </div>
+            <input type="range" id="tempSlider" min="-1.0" max="1.0" step="0.1" value="0.0">
+          </div>
+        </section>
+
+        <!-- Advanced Algorithms -->
+        <section class="panel-section">
+          <h3>4. Advanced Algorithms</h3>
+          <div class="checkbox-grid">
+            <label class="checkbox-item">
+              <input type="checkbox" id="chkEqualize">
+              <span>Histogram Equalization (YCbCr)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="chkUnsharp">
+              <span>Unsharp Masking (Edge Crisper)</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="chkAutoContrast">
+              <span>Auto-Contrast Stretch</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="chkMedianDenoise">
+              <span>Median Denoise Filter</span>
+            </label>
+          </div>
+        </section>
+
+        <div class="action-buttons">
+          <button id="applyBtn" class="primary-btn">
+            <span class="btn-text">⚡ Apply Enhancement</span>
+            <span class="btn-spinner hidden" id="spinner"></span>
+          </button>
+          <button id="resetBtn" class="reset-btn">🔄 Reset</button>
+        </div>
+      </aside>
+
+      <!-- Right: Preview and Comparison -->
+      <main class="preview-area">
+        <div class="view-controls">
+          <div class="view-mode-toggle">
+            <button id="modeSplit" class="mode-btn active">↔️ Split Compare</button>
+            <button id="modeSideBySide" class="mode-btn">⊞ Side-by-Side</button>
+          </div>
+          <a id="downloadBtn" class="download-btn disabled" download="enhanced_image.jpg">
+            ⬇️ Download Enhanced
+          </a>
+        </div>
+
+        <!-- Split comparison container -->
+        <div class="comparison-container" id="splitViewer">
+          <div class="img-wrapper">
+            <img id="enhancedImg" alt="Enhanced" />
+            <div class="label enhanced-label">Enhanced</div>
+          </div>
+          <div class="img-wrapper original-wrapper" id="origWrapper">
+            <img id="originalImg" alt="Original" />
+            <div class="label original-label">Original</div>
+          </div>
+          <div class="slider-handle" id="sliderHandle">
+            <div class="handle-line"></div>
+            <div class="handle-circle">↔</div>
+          </div>
+        </div>
+
+        <!-- Side-by-side container -->
+        <div class="side-by-side-container hidden" id="sideViewer">
+          <div class="side-box">
+            <h4>Original</h4>
+            <img id="sideOrigImg" alt="Original" />
+          </div>
+          <div class="side-box">
+            <h4>Enhanced</h4>
+            <img id="sideEnhImg" alt="Enhanced" />
+          </div>
+        </div>
+
+        <!-- Quantitative Quality Metrics -->
+        <section class="metrics-card">
+          <h3>Quantitative Image Quality Assessment</h3>
+          <div class="metrics-grid">
+            <div class="metric-item">
+              <span class="metric-title">PSNR</span>
+              <strong id="metricPsnr">-- dB</strong>
+              <small>Peak Signal-to-Noise Ratio</small>
+            </div>
+            <div class="metric-item">
+              <span class="metric-title">MSE</span>
+              <strong id="metricMse">--</strong>
+              <small>Mean Squared Error</small>
+            </div>
+            <div class="metric-item">
+              <span class="metric-title">Luminance</span>
+              <strong id="metricLum">--</strong>
+              <small>Orig vs Enhanced Mean</small>
+            </div>
+            <div class="metric-item">
+              <span class="metric-title">Contrast</span>
+              <strong id="metricContrast">--</strong>
+              <small>Standard Deviation</small>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="app-footer">
+      <p>Multimedia Final Project &bull; Task 4: Image Enhancement &bull; Pillow & NumPy &bull; Local Processing</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+{
+  "name": "voice-cloning",
+  "version": "1.0.0",
+  "description": "Instant Voice Cloning and Text-to-Speech Generation using ElevenLabs API and Audio Processing",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "elevenlabs",
+    "voice-cloning",
+    "text-to-speech",
+    "tts",
+    "multimedia",
+    "speech-synthesis"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "multer": "^1.4.5-lts.1"
+  }
+}

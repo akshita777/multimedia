@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+enhanced_output.jpg
+test_*.jpg
